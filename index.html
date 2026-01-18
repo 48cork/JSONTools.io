@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONTools.io - Free Tools for Developers</title>
+    <meta name="description" content="Convert JSON to CSV online. 100% browser processing, secure and free. The first of many JSON tools for developers.">
+    <meta name="keywords" content="JSON tools, JSON to CSV, JSON converter, JSON online, developer tools, JSON validator, JSON formatter">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="JSONTools.io - Free JSON Tools">
+    <meta property="og:description" content="Convert JSON to CSV online securely and free. 100% browser processing.">
+    <meta property="og:type" content="website">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lang-btn:not(.active) {
+            background: var(--light);
+            color: var(--dark);
+            border-color: #cbd5e1;
+        }
+
+        .lang-btn:hover:not(.active) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-tagline {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .nav-tools {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tool {
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tool.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-tool:hover:not(.active) {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-tool.coming-soon {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .nav-tool.coming-soon::after {
+            content: "Coming Soon";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--warning);
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Main Content */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-header {
+            margin-bottom: 35px;
+        }
+
+        .tool-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .tool-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), #3b82f6);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+        }
+
+        .tool-name h1 {
+            font-size: 2.4rem;
+            color: var(--dark);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .tool-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-left: 71px;
+        }
+
+        /* Input/Output Area */
+        .io-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .io-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .io-panel {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 25px;
+            border: 2px solid #e2e8f0;
+            transition: border-color 0.3s;
+        }
+
+        .io-panel:focus-within {
+            border-color: var(--primary);
+        }
+
+        .io-panel h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .io-panel h3 i {
+            color: var(--primary);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            border: none;
+            background: transparent;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            color: var(--dark);
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        #jsonInput {
+            color: var(--primary-dark);
+        }
+
+        #csvOutput {
+            color: var(--success);
+        }
+
+        .empty-state {
+            color: var(--gray);
+            font-style: italic;
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0.7;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 18px 25px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid #cbd5e1;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 25px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #f1f5f9;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list i {
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+
+        .upcoming-tools {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .upcoming-tool {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .upcoming-tool:hover {
+            transform: translateX(5px);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .upcoming-tool i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        /* Newsletter Form */
+        .newsletter-form {
+            position: relative;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .newsletter-form input.error {
+            border-color: var(--danger);
+        }
+
+        .newsletter-form .success-message {
+            display: none;
+            color: var(--success);
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border: 2px solid #bbf7d0;
+        }
+
+        .newsletter-form .success-message.show {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark), #0f172a);
+            color: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta {
+            padding: 20px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-cta-primary {
+            background: white;
+            color: var(--dark);
+        }
+
+        .btn-cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+            
+            .logo-main {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 25px;
+            }
+            
+            .tool-name h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-section {
+                padding: 30px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .language-switcher {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{} </text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <a href="index.html" class="lang-btn active">🇺🇸 English</a>
+            <a href="pt.html" class="lang-btn">🇧🇷 Português</a>
+        </div>
+
+        <!-- Header with Logo & Navigation -->
+        <header>
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        {}
+                    </div>
+                    <div class="logo-text">
+                        <div class="logo-main">JSONTools.io</div>
+                        <div class="logo-tagline">Free tools for developers</div>
+                    </div>
+                </a>
+                
+                <div class="nav-tools">
+                    <a href="#" class="nav-tool active">
+                        <i class="fas fa-exchange-alt"></i>
+                        JSON to CSV
+                    </a>
+                    <a href="#" class="nav-tool coming-soon">
+                        <i class="fas fa-check-circle"></i>
+                        JSON Validator
+                    </a>
+                    <a href="#" class="nav-tool coming-soon">
+                        <i class="fas fa-indent"></i>
+                        JSON Formatter
+                    </a>
+                    <a href="#" class="nav-tool coming-soon">
+                        <i class="fas fa-search"></i>
+                        JSON Explorer
+                    </a>
+                    <a href="#" class="nav-tool coming-soon">
+                        <i class="fas fa-code"></i>
+                        JSON to XML
+                    </a>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="conversionCount">1,247</div>
+                    <div class="stat-label">Conversions today</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="fileSize">0 KB</div>
+                    <div class="stat-label">Currently processed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="processingTime">0ms</div>
+                    <div class="stat-label">Processing time</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Main Tool Card -->
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-title">
+                        <div class="tool-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="tool-name">
+                            <h1>JSON to CSV Converter</h1>
+                            <div class="tool-subtitle">
+                                Convert JSON data to CSV format ready for Excel, Google Sheets, and databases
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input/Output Panels -->
+                <div class="io-container">
+                    <div class="io-panel">
+                        <h3><i class="fas fa-code"></i> JSON Input</h3>
+                        <textarea id="jsonInput" placeholder='Paste your JSON here... Example: 
+[
+  {
+    "name": "John Doe",
+    "age": 28,
+    "city": "New York"
+  }
+]'></textarea>
+                    </div>
+                    
+                    <div class="io-panel">
+                        <h3><i class="fas fa-file-csv"></i> CSV Output</h3>
+                        <div id="csvOutput" class="empty-state">
+                            Converted CSV will appear here...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="convertJSON()">
+                        <i class="fas fa-sync-alt"></i>
+                        Convert to CSV
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAll()">
+                        <i class="fas fa-eraser"></i>
+                        Clear All
+                    </button>
+                    <button class="btn btn-success" onclick="downloadCSV()">
+                        <i class="fas fa-download"></i>
+                        Download CSV
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyToClipboard()">
+                        <i class="far fa-copy"></i>
+                        Copy CSV
+                    </button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn" style="background: #e0f2fe; color: #0369a1; padding: 12px 20px;" onclick="loadExample()">
+                        <i class="fas fa-lightbulb"></i> Load Example
+                    </button>
+                    <button class="btn" style="background: #f0f9ff; color: #0c4a6e; padding: 12px 20px;" onclick="validateJSON()">
+                        <i class="fas fa-check-circle"></i> Validate JSON
+                    </button>
+                    <button class="btn" style="background: #fef3c7; color: #92400e; padding: 12px 20px;" onclick="formatJSON()">
+                        <i class="fas fa-indent"></i> Format JSON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Features Card -->
+                <div class="info-card">
+                    <h3><i class="fas fa-star"></i> Why use JSONTools.io?</h3>
+                    <ul class="features-list">
+                        <li><i class="fas fa-shield-alt"></i> <strong>100% Secure:</strong> Local processing in your browser</li>
+                        <li><i class="fas fa-bolt"></i> <strong>Instant:</strong> Conversion in milliseconds</li>
+                        <li><i class="fas fa-infinity"></i> <strong>No Limits:</strong> Use as many times as you want</li>
+                        <li><i class="fas fa-code"></i> <strong>Complex JSON:</strong> Supports nested objects</li>
+                        <li><i class="fas fa-download"></i> <strong>Direct Download:</strong> CSV ready to use</li>
+                    </ul>
+                </div>
+
+                <!-- Upcoming Tools -->
+                <div class="info-card">
+                    <h3><i class="fas fa-tools"></i> More tools coming soon</h3>
+                    <div class="upcoming-tools">
+                        <div class="upcoming-tool">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>JSON Validator</strong>
+                                <div style="font-size: 0.9rem; color: var(--gray);">Validate and correct JSONs</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-tool">
+                            <i class="fas fa-indent"></i>
+                            <div>
+                                <strong>JSON Formatter</strong>
+                                <div style="font-size: 0.9rem; color: var(--gray);">Format and organize JSON</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-tool">
+                            <i class="fas fa-search"></i>
+                            <div>
+                                <strong>JSON Explorer</strong>
+                                <div style="font-size: 0.9rem; color: var(--gray);">Navigate complex JSONs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="info-card">
+                    <h3><i class="fas fa-envelope"></i> Don't miss updates!</h3>
+                    <p style="margin-bottom: 20px; color: var(--gray);">Get notified about new tools.</p>
+                    <div class="newsletter-form" id="newsletterForm">
+                        <input type="email" id="newsletterEmail" placeholder="your@email.com" class="newsletter-input">
+                        <button class="btn" style="width: 100%; background: var(--primary); color: white;" onclick="subscribeNewsletter()">
+                            <i class="fas fa-paper-plane"></i> Subscribe
+                        </button>
+                        <div class="success-message" id="newsletterSuccess">
+                            <i class="fas fa-check-circle"></i> Subscribed! Please check your email.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2>Need more power?</h2>
+                <p>
+                    If you work with large data volumes, automation, or need 
+                    API integration, check out our complete platform.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-cta btn-cta-primary">
+                        <i class="fas fa-rocket"></i>
+                        JSONTools Pro API
+                    </a>
+                    <a href="#" class="btn-cta btn-cta-secondary">
+                        <i class="fas fa-book"></i>
+                        Documentation
+                    </a>
+                </div>
+                <p style="margin-top: 25px; opacity: 0.8; font-size: 0.95rem;">
+                    <i class="fas fa-check-circle"></i> REST API • Webhooks • 10GB Limit • Priority Support
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="logo-main" style="font-size: 1.8rem; margin-bottom: 10px;">JSONTools.io</div>
+            <p style="color: var(--gray); margin-bottom: 20px;">Free tools for developers</p>
+            
+            <div class="footer-links">
+                <a href="https://github.com/48cork/JSON-Converter-Pro" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://github.com/48cork/JSON-Converter-Pro/issues" target="_blank">
+                    <i class="fas fa-bug"></i> Report Bug
+                </a>
+                <a href="https://github.com/48cork/JSON-Converter-Pro/issues" target="_blank">
+                    <i class="fas fa-lightbulb"></i> Suggest Tool
+                </a>
+                <a href="#" onclick="alert('Contact: open an issue on GitHub 😊')">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+                <a href="#" onclick="alert('Privacy: 100% secure! No data leaves your browser.')">
+                    <i class="fas fa-file-alt"></i> Privacy
+                </a>
+            </div>
+            
+            <!-- REPOSITORY LINK -->
+            <div style="margin-top: 20px; font-size: 0.85rem; color: var(--gray);">
+                <i class="fab fa-github"></i> Repository: 
+                <a href="https://github.com/48cork/JSON-Converter-Pro" 
+                   target="_blank"
+                   style="color: var(--primary); text-decoration: none; font-weight: 500;">
+                    github.com/48cork/JSON-Converter-Pro
+                </a>
+                • 
+                <a href="https://github.com/48cork/JSON-Converter-Pro/blob/main/LICENSE" 
+                   target="_blank"
+                   style="color: var(--gray); text-decoration: none;">
+                    MIT License
+                </a>
+            </div>
+            
+            <div class="copyright" style="margin-top: 15px;">
+                © 2024 JSONTools.io • 
+                <span style="color: var(--accent);">100% local processing in your browser</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Core variables
+        let csvResult = '';
+        let jsonData = null;
+        let fileSize = 0;
+        let startTime = 0;
+        
+        // Load initial example
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExample();
+            updateStats();
+        });
+        
+        // Main conversion function
+        function convertJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const outputElement = document.getElementById('csvOutput');
+            
+            if (!input) {
+                alert("Please paste valid JSON.");
+                return;
+            }
+            
+            startTime = performance.now();
+            
+            try {
+                // Parse JSON
+                jsonData = JSON.parse(input);
+                
+                // Calculate file size
+                fileSize = new Blob([input]).size;
+                
+                // Convert to CSV
+                csvResult = jsonToCSV(jsonData);
+                
+                // Display result
+                outputElement.innerHTML = `<pre style="font-family: 'JetBrains Mono', monospace; color: var(--success); margin: 0;">${escapeHtml(csvResult)}</pre>`;
+                outputElement.classList.remove('empty-state');
+                
+                // Update stats
+                updateStats();
+                
+                // Increment conversion count
+                incrementConversionCount();
+                
+            } catch (error) {
+                outputElement.innerHTML = `<div style="color: var(--danger); padding: 20px; background: #fef2f2; border-radius: 10px; border-left: 4px solid var(--danger);">
+                    <strong><i class="fas fa-exclamation-triangle"></i> JSON Error:</strong><br>
+                    ${escapeHtml(error.message)}
+                </div>`;
+            }
+        }
+        
+        // JSON to CSV conversion with nested support
+        function jsonToCSV(json) {
+            const items = Array.isArray(json) ? json : [json];
+            if (items.length === 0) return '';
+            
+            // Get all headers from nested objects
+            const headers = getAllHeaders(items);
+            
+            // Build rows
+            const rows = items.map(item => {
+                return headers.map(header => {
+                    const value = getNestedValue(item, header);
+                    if (value === null || value === undefined) return '';
+                    
+                    const stringValue = String(value);
+                    // Escape CSV special characters
+                    if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n') || stringValue.includes('\r')) {
+                        return `"${stringValue.replace(/"/g, '""')}"`;
+                    }
+                    return stringValue;
+                });
+            });
+            
+            return [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+        }
+        
+        // Get
