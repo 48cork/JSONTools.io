@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to CSV Bookmarklet - JSONTools.io</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .tagline {
+            color: #64748b;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .price-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #06b6d4;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            color: #94a3b8;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 18px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 200px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 2px solid #cbd5e1;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .features h3 {
+            color: #2563eb;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list i {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+        
+        .comparison {
+            background: #fef3c7;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #f59e0b;
+        }
+        
+        .comparison h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .guarantee {
+            background: #f0fdf4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #bbf7d0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .price {
+                font-size: 2.8rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">JSONTools.io</div>
+            <h1>🚀 JSON to CSV Bookmarklet</h1>
+            <p class="tagline">Converta JSON para CSV em 1 clique de qualquer site!</p>
+        </header>
+
+        <!-- Comparação IA vs Plugin -->
+        <div class="comparison">
+            <h3><i class="fas fa-robot"></i> IA vs Nosso Bookmarklet</h3>
+            <p><strong>Com ChatGPT:</strong> Abrir → Digitar prompt → Copiar JSON → Colar → Esperar → Copiar resposta → Colar no CSV = <strong>3-5 minutos</strong></p>
+            <p><strong>Com nosso Bookmarklet:</strong> Clicar 1 vez = <strong>10 segundos</strong></p>
+            <p style="margin-top: 10px; color: #92400e;"><strong>Economize 2+ horas por semana!</strong></p>
+        </div>
+
+        <!-- Card de Preço -->
+        <div class="price-card">
+            <h2 style="color: white; margin-bottom: 10px;">Preço Especial de Lançamento</h2>
+            <div class="price">R$ 25<span class="currency"> BRL</span></div>
+            <p style="color: #94a3b8; margin-top: 10px;">ou $5 USD para clientes internacionais</p>
+        </div>
+
+        <!-- Botões de Compra -->
+        <div class="buttons">
+            <a href="#pix" class="btn btn-primary">
+                <i class="fas fa-brazilian-real-sign"></i> Comprar com PIX (R$ 25)
+            </a>
+            <a href="#paypal" class="btn btn-secondary">
+                <i class="fab fa-paypal"></i> Comprar com PayPal ($5)
+            </a>
+        </div>
+
+        <!-- Garantia -->
+        <div class="guarantee">
+            <h3><i class="fas fa-shield-alt"></i> Garantia de 30 Dias</h3>
+            <p>Se não gostar ou não funcionar, devolvemos seu dinheiro sem perguntas!</p>
+        </div>
+
+        <!-- O que você recebe -->
+        <div class="features">
+            <h3><i class="fas fa-gift"></i> O que você recebe:</h3>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> <strong>Bookmarklet pronto</strong> - Arquivo .txt para instalar</li>
+                <li><i class="fas fa-book"></i> <strong>Guia de instalação</strong> - PDF passo a passo</li>
+                <li><i class="fas fa-video"></i> <strong>Vídeo tutorial</strong> - Instalação em 2 minutos</li>
+                <li><i class="fas fa-envelope"></i> <strong>Suporte por email</strong> - 30 dias grátis</li>
+                <li><i class="fas fa-sync-alt"></i> <strong>Atualizações gratuitas</strong> - Por 1 ano</li>
+                <li><i class="fas fa-rocket"></i> <strong>Acesso imediato</strong> - Download instantâneo</li>
+            </ul>
+        </div>
+
+        <!-- Como funciona -->
+        <div class="features">
+            <h3><i class="fas fa-play-circle"></i> Como funciona:</h3>
+            <ol style="padding-left: 20px; margin-top: 15px;">
+                <li style="margin-bottom: 10px;">Você compra e recebe o arquivo por email</li>
+                <li style="margin-bottom: 10px;">Arrasta o link para sua barra de favoritos</li>
+                <li style="margin-bottom: 10px;">Quando ver um JSON em qualquer site, clica no bookmarklet</li>
+                <li>Pronto! JSON convertido para CSV automaticamente</li>
+            </ol>
+        </div>
+
+        <!-- Para quem é -->
+        <div class="features">
+            <h3><i class="fas fa-user-check"></i> Para quem é perfeito:</h3>
+            <ul class="feature-list">
+                <li><i class="fas fa-code"></i> <strong>Desenvolvedores</strong> - Teste APIs rapidamente</li>
+                <li><i class="fas fa-chart-line"></i> <strong>Analistas de dados</strong> - Converta JSONs para Excel</li>
+                <li><i class="fas fa-database"></i> <strong>Gestores</strong> - Exporte dados de sistemas</li>
+                <li><i class="fas fa-graduation-cap"></i> <strong>Estudantes</strong> - Trabalhe com JSON em projetos</li>
+            </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="features">
+            <h3><i class="fas fa-question-circle"></i> Perguntas Frequentes:</h3>
+            <div style="margin-top: 20px;">
+                <p><strong>Q: Preciso ser programador para usar?</strong><br>
+                A: Não! Qualquer pessoa consegue instalar em 2 minutos.</p>
+                
+                <p style="margin-top: 15px;"><strong>Q: Funciona em qual navegador?</strong><br>
+                A: Chrome, Firefox, Edge, Safari - todos funcionam!</p>
+                
+                <p style="margin-top: 15px;"><strong>Q: E se não funcionar?</strong><br>
+                A: Garantia de 30 dias! Devolvemos seu dinheiro.</p>
+            </div>
+        </div>
+
+        <!-- Botões finais -->
+        <div class="buttons" style="margin-top: 40px;">
+            <a href="#pix" class="btn btn-primary" style="font-size: 1.2rem; padding: 20px 40px;">
+                <i class="fas fa-bolt"></i> QUERO ECONOMIZAR TEMPO AGORA!
+            </a>
+        </div>
+
+        <footer>
+            <p>JSONTools.io • Ferramentas para desenvolvedores</p>
+            <p style="margin-top: 10px;">
+                <a href="https://48cork.github.io/JSON-Converter-Pro/" style="color: #2563eb; text-decoration: none;">
+                    <i class="fas fa-external-link-alt"></i> Use nossa ferramenta grátis de conversão
+                </a>
+            </p>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;">
+                © 2024 JSONTools.io • Suporte: contato@jsontools.io
+            </p>
+        </footer>
+    </div>
+
+    <!-- Seções de pagamento (você vai preencher depois) -->
+    <div id="pix" style="display: none;">
+        <!-- Aqui você vai colocar suas informações PIX -->
+    </div>
+    
+    <div id="paypal" style="display: none;">
+        <!-- Aqui você vai colocar o botão do PayPal -->
+    </div>
+
+    <script>
+        // Suaviza rolagem para as seções
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#pix' || targetId === '#paypal') {
+                    // Mostra instruções de pagamento
+                    alert('Para pagar com PIX:\n1. Chave PIX: seu-email@exemplo.com\n2. Envie R$ 25,00\n3. Envie comprovante para contato@jsontools.io\n\nPara pagar com PayPal:\n1. Envie $5 para paypal.me/seuusuario\n2. Envie email com comprovante');
+                }
+            });
+        });
+        
+        // Contador de conversões (fake para demonstração)
+        let conversions = 1247;
+        setInterval(() => {
+            conversions++;
+            document.querySelector('.price').innerHTML = `R$ 25<span class="currency"> BRL</span>`;
+        }, 30000);
+    </script>
+</body>
+</html>
